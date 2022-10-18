@@ -1,0 +1,11 @@
+{
+  "name": "task-manager-be",
+  "version": "1.0.0",
+  "description": "task manager - server",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "fath-nasrudin",
+  "license": "ISC"
+}
