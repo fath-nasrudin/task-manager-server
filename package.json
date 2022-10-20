@@ -4,7 +4,7 @@
   "description": "task manager - server",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
