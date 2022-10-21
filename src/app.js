@@ -9,10 +9,17 @@ const app = express();
 // parser
 app.use(express.json());
 
-// routes
+// root
+app.get('/', (req, res, next) => { res.json({ message: 'root' }); });
+
+// routes for api
 app.use(api.path, routes);
 
 // error handler
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Endpoint not found' });
+});
+
 // change into profer error handler
 app.use((err, req, res, next) => {
   const data = {};
