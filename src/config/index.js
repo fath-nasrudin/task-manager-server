@@ -1,24 +1,23 @@
+require('dotenv').config();
+
 module.exports = {
   port: process.env.PORT || 3000,
   jwt: {
-    secret: 'cdaaptnia',
-    exp: '30d',
+    secret: process.env.JWT_SECRET,
+    exp: process.env.JWT_EXP,
   },
   api: {
-    path: '/api/v1',
+    path: process.env.API_PATH || '/api/v1',
   },
   db: {
     test: {
-      // uri: process.env.MONGDB_URI_TEST
-      uri: 'mongodb://127.0.0.1/task-manager-test',
+      uri: process.env.MONGODB_URI_TEST,
     },
     dev: {
-      // uri: process.env.MONGDB_URI_TEST
-      uri: 'mongodb://127.0.0.1/task-manager-dev',
+      uri: process.env.MONGODB_URI_DEV,
     },
     prod: {
-      // uri: process.env.MONGDB_URI_TEST
-      uri: 'mongodb://127.0.0.1/task-manager-prod',
+      uri: process.env.MONGODB_URI_PROD,
     },
   },
 };

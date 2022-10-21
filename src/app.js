@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 
 const routes = require('./routes');
@@ -14,8 +15,13 @@ app.use(api.path, routes);
 // error handler
 // change into profer error handler
 app.use((err, req, res, next) => {
-  if (!err.isOperational) console.error(err);
-  res.status(err.statusCode || 500).json({ message: err.message });
+  const data = {};
+  data.message = err.message;
+  if (!err.isOperational) {
+    console.error(err);
+    data.message = 'Internal Server Error';
+  }
+  res.status(err.statusCode || 500).json(data);
 });
 
 module.exports = app;
