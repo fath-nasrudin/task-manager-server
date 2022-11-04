@@ -15,6 +15,7 @@ app.use(cors(corsOptions));
 
 // parser
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // root
 app.get('/', (req, res, next) => { res.json({ message: 'root' }); });
