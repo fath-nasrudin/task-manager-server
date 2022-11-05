@@ -17,7 +17,7 @@ class UserController {
       const { body } = req;
       const data = await userService.signin(body);
 
-      res.status(200).json({ data });
+      res.status(200).json({ data: { token: data } });
     } catch (error) {
       next(error);
     }

@@ -8,6 +8,7 @@ module.exports = {
   jwt: {
     secret: process.env.JWT_SECRET,
     exp: process.env.JWT_EXP,
+    iss: process.env.JWT_ISS,
   },
   api: {
     path: process.env.API_PATH || '/api/v1',

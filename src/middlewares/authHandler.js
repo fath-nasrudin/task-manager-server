@@ -10,10 +10,10 @@ const authenticate = async (req, res, next) => {
   try {
   // take the token from authorization
     const { authorization } = req.headers;
-    if (!authorization
-    || !authorization.startsWith('Bearer ')) {
-      generateHTTPError(401, 'please provide correct JWT token');
-    }
+
+    if (!authorization) generateHTTPError(401, 'authorization not found in header');
+
+    if (!authorization.startsWith('Bearer ')) generateHTTPError(401, 'authorization need in bearer format');
 
     const [, token] = authorization.split(' ');
 
@@ -22,7 +22,7 @@ const authenticate = async (req, res, next) => {
     if (!decoded) generateHTTPError(401, 'please provide correct JWT token');
 
     // if verified, looked for the user
-    const user = await userService.getUserById(decoded.id);
+    const user = await userService.getUserById(decoded._id);
     req.user = user;
 
     next();

@@ -1,5 +1,5 @@
 const {
-  generateHTTPError, hashData, isHashedDataMatch, generateJWTToken, isValidId,
+  generateHTTPError, hashData, isHashedDataMatch, isValidId, generateUserJWTToken,
 } = require('../utils');
 
 // auth
@@ -44,13 +44,16 @@ const signin = (User) => async (data) => {
   const passwordMatched = await isHashedDataMatch(password, foundUser.password);
   if (!passwordMatched) generateHTTPError(400, 'wrong email or password');
 
+  const payload = {
+    _id: foundUser._id,
+    name: foundUser.name,
+    email: foundUser.email,
+  };
   // create jwt token
-  const token = generateJWTToken(foundUser._id);
+  const token = generateUserJWTToken(payload);
 
   // return the data
-  const { password: hide, ...user } = foundUser._doc;
-  const result = { ...user, token };
-  return result;
+  return token;
 };
 
 // CRUD

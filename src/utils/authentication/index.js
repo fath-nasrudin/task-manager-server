@@ -35,13 +35,25 @@ const isHashedDataMatch = async (data, hashedData) => bcrypt.compare(data, hashe
 //   );
 // };
 
-const generateJWTToken = (id) => jwt.sign(
-  { id },
-  config.jwt.secret,
-  {
-    expiresIn: config.jwt.exp,
-  },
-);
+const generateJWTToken = (data = {}) => {
+  let payload = data;
+  if (typeof data !== 'object') payload = { data };
+  return jwt.sign(
+    payload,
+
+    config.jwt.secret,
+    {
+      expiresIn: config.jwt.exp,
+      issuer: config.jwt.iss,
+    },
+  );
+};
+
+const generateUserJWTToken = ({
+  _id, email, name,
+}) => generateJWTToken({
+  _id, email, name,
+});
 
 const verifyJWTToken = (token) => jwt.verify(token, config.jwt.secret, {});
 
@@ -49,5 +61,6 @@ module.exports = {
   hashData,
   isHashedDataMatch,
   generateJWTToken,
+  generateUserJWTToken,
   verifyJWTToken,
 };
